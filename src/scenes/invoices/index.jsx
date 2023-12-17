@@ -3,6 +3,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataInvoices } from "../../data/mockData";
 import Header from "../../components/Header";
+import ChatUi from "../../components/ChatUi";
 
 const Invoices = () => {
   const theme = useTheme();
@@ -45,7 +46,7 @@ const Invoices = () => {
   return (
     <Box m="20px">
       <Header title="INVOICES" subtitle="List of Invoice Balances" />
-      <Box
+      {/* <Box
         m="40px 0 0 0"
         height="75vh"
         sx={{
@@ -75,7 +76,9 @@ const Invoices = () => {
         }}
       >
         <DataGrid checkboxSelection rows={mockDataInvoices} columns={columns} />
-      </Box>
+      </Box> */}
+
+      <ChatUi />
     </Box>
   );
 };

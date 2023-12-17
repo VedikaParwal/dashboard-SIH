@@ -38,3 +38,78 @@ body,
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+.main {
+  min-height:calc(100vh - 14rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin : 6rem 10rem
+}
+
+.chats {
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  width: 100%;
+  max-width : 70rem;
+  max-height : 40rem;
+  
+}
+
+.chat {
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 1.2rem;
+  padding: 2rem 3rem;
+  text-align: justify;
+
+}
+
+.bot {
+  background: rgba(28,30,58,.1);
+  width: fit-content;
+  border-radius: 0.5rem;
+
+}
+
+.chatimg {
+  object-fit: cover;
+  width: 3rem;
+  margin-right: 2rem;
+  border-radius: 0.5rem;
+}
+
+.chatFooter {
+  margin-top: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.inp {
+  padding: 0.5rem;
+  background: rgba(28,30,58,.1);
+  display: flex;
+  align-items: center;
+  border-radius: 1rem;
+  width: 100%;
+
+}
+
+.inp > input {
+  width : calc(100% - 2rem);
+  outline : none;
+  border : none;
+
+  padding: 1.5rem;
+  color: #000;
+}
+
+.inp>input, .send {
+  background: transparent;
+  border: none;
+}
