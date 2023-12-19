@@ -13,7 +13,7 @@ const ChatUi = () => {
     const [chat, setChat] = useState('');
     const [messages, setMessages] = useState([
         {
-            text : "Hello, I am Gemini. How can I help you today?",  
+            text : "Hello, I am Vedika, How can I help you today?",  
             isBot : true,
         }
     ])

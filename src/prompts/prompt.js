@@ -7,31 +7,44 @@ const fs = require("fs");
 const genAI = new GoogleGenerativeAI("AIzaSyBWlnzJlvhg5mJVFVo-By40ASfs3OupjiQ");
 
 // Converts local file information to a GoogleGenerativeAI.Part object.
-function fileToGenerativePart(path, mimeType) {
+async function fileToGenerativePart(path, mimeType) {
+  const file = await fetch(path).then((response) => response.blob());
+
+  const data = await new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result);
+    reader.readAsDataURL(file);
+  });
+
   return {
     inlineData: {
-      data: Buffer.from(fs.readFileSync(path)).toString("base64"),
+      data: data.split(',')[1], // Extract the base64-encoded data part
       mimeType,
     },
   };
 }
-
-async function run() {
+export async function runImage(chat, image) {
   // For text-and-image input (multimodal), use the gemini-pro-vision model
   const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
 
   const prompt =
+    chat ||
     "Extract the text from the images and and calculate : Clay / Silt (-75 micron) percent, Sand (-4.75 mm + 75 micron) percent: and Gravel (-100 mm + 4.75 mm) percent:";
 
   const imageParts = [
-    fileToGenerativePart("F:/downloady.png", "image/png"),
-    fileToGenerativePart("F:/result.png", "image/jpeg"),
+    fileToGenerativePart(
+      "/Users/navansh/Web_Dev_Projects/SIH/dashboard-sih/src/assets/report.png",
+      "image/png"
+    ),
+    // fileToGenerativePart("F:/result.png", "image/jpeg"),
   ];
 
+  console.log("Generating...");
   const result = await model.generateContent([prompt, ...imageParts]);
   const response = await result.response;
   const text = response.text();
   console.log(text);
+
+  return response.text();
 }
 
-run();
