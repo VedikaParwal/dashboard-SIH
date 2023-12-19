@@ -25,7 +25,7 @@ const Form = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [messages, setMessages] = useState([
       {
-          text : "Hello, I am Gemini. How can I help you today?",  
+          text : "Hello, I am Vedika, please input reports for analysis?",  
           isBot : true,
       }
   ])
