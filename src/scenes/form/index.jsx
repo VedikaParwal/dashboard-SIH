@@ -5,7 +5,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import React from 'react'
 import { useState } from 'react'
-
+import axios from 'axios';
 
 import sendImage from '../../assets/send.png'
 import adminImage from '../../assets/admin.png'
@@ -39,20 +39,38 @@ const Form = () => {
     msgEnd.current.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-    const handleSend = async () => {
-      const response = await runImage(chat, selectedImage);
-      setMessages([
-          ...messages,
-          {
-              text : chat,
-              isBot : false,
-          },
-          {
-              text : response,
-              isBot : true,
-          }
-      ])
+  // call the image api using axios and pass the chat in the body of the request
+  const handleSend = async () => {
+    const response = await axios.get('http://localhost:4000/api/runImage', {
+      text: chat
+    })
+    console.log(response.data.message);
+    setMessages([
+        ...messages,
+        {
+            text : chat,
+            isBot : false,
+        },
+        {
+            text : response.data.message,
+            isBot : true,
+        }
+    ])
   }
+    // const handleSend = async () => {
+    //   const response = await runImage(chat, selectedImage);
+    //   setMessages([
+    //       ...messages,
+    //       {
+    //           text : chat,
+    //           isBot : false,
+    //       },
+    //       {
+    //           text : response,
+    //           isBot : true,
+    //       }
+    //   ])
+    // }
 
   const handleEnterKey = async (e) => {
       if (e.key === 'Enter') {
