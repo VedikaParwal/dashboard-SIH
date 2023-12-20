@@ -3,23 +3,42 @@ import { tokens } from "../../theme";
 import { mockTransactions } from "../../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 // import EmailIcon from "@mui/icons-material/Email";
-import AddRoadIcon from '@mui/icons-material/AddRoad';
+import AddRoadIcon from "@mui/icons-material/AddRoad";
 // import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
-import WatchLaterIcon from '@mui/icons-material/WatchLater';
+import WatchLaterIcon from "@mui/icons-material/WatchLater";
 // import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import AddTaskIcon from '@mui/icons-material/AddTask';
+import AddTaskIcon from "@mui/icons-material/AddTask";
 // import TrafficIcon from "@mui/icons-material/Traffic";
-import EngineeringIcon from '@mui/icons-material/Engineering';
+import EngineeringIcon from "@mui/icons-material/Engineering";
 import Header from "../../components/Header";
 import LineChart from "../../components/LineChart";
 import GeographyChart from "../../components/GeographyChart";
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
+import { Chart as ChartJS } from "chart.js/auto";
+import { Bar, Doughnut, Line } from "react-chartjs-2";
+import sourceData from "../contacts/sourceData.json";
+import { PieChart, Pie, Tooltip, Cell, ResponsiveContainer } from "recharts";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  // const data = [
+  //   { name: "Group A", value: 400 },
+  //   { name: "Group B", value: 300 },
+  //   { name: "Group C", value: 300 },
+  //   { name: "Group D", value: 200 },
+  //   { name: "Group E", value: 278 },
+  //   { name: "Group F", value: 189 },
+  // ];
+
+  const data = [
+    { name: 'Group A', value: 400 },
+    { name: 'Group B', value: 300 },
+    { name: 'Group C', value: 300 },
+    { name: 'Group D', value: 200 },
+  ];
 
   return (
     <Box m="20px">
@@ -201,9 +220,78 @@ const Dashboard = () => {
             display="flex"
             flexDirection="column"
             alignItems="center"
-            mt="25px"
+            // mt="25px"
           >
-            <ProgressCircle size="125" />
+            {/* <ProgressCircle size="125" /> */}
+            {/* <div>
+              <Doughnut
+                data={{
+                  labels: sourceData.map((data) => data.label),
+                  datasets: [
+                    {
+                      label: "Count",
+                      data: sourceData.map((data) => data.value),
+                      backgroundColor: [
+                        "rgba(43, 63, 229, 0.8)",
+                        "rgba(250, 192, 19, 0.8)",
+                        "rgba(253, 135, 135, 0.8)",
+                      ],
+                      borderColor: [
+                        "rgba(43, 63, 229, 0.8)",
+                        "rgba(250, 192, 19, 0.8)",
+                        "rgba(253, 135, 135, 0.8)",
+                      ],
+                    },
+                  ],
+                }}
+                options={{
+                  plugins: {
+                    title: {
+                      text: "Revenue Sources",
+                    },
+                  },
+                }}
+              />
+            </div> */}
+            {/* <ResponsiveContainer width="100%" height="100%">
+              <PieChart width={400} height={400}>
+                <Pie
+                  dataKey="value"
+                  isAnimationActive={false}
+                  data={data01}
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={80}
+                  fill="#8884d8"
+                  label
+                />
+                <Pie
+                  dataKey="value"
+                  data={data02}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={40}
+                  outerRadius={80}
+                  fill="#82ca9d"
+                />
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer> */}
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart width={400} height={400}>
+                <Pie
+                  dataKey="value"
+                  startAngle={180}
+                  endAngle={0}
+                  data={data}
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={80}
+                  fill="#8884d8"
+                  label
+                />
+              </PieChart>
+            </ResponsiveContainer>
             <Typography
               variant="h5"
               color={colors.greenAccent[500]}
@@ -271,15 +359,13 @@ const Dashboard = () => {
               </Box>
               <Box color={colors.grey[100]}>{transaction.date}</Box>
               <Box>
-                <Typography p="0px 10px">
-                  Coverage
-                </Typography>
+                <Typography p="0px 10px">Coverage</Typography>
                 <Typography
                   backgroundColor={colors.greenAccent[500]}
                   p="5px 10px"
                   borderRadius="4px"
                 >
-                {transaction.cost} KM
+                  {transaction.cost} KM
                 </Typography>
               </Box>
             </Box>
