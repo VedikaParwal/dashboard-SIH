@@ -3,13 +3,13 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
-import React from 'react'
-import { useState } from 'react'
+import React from "react";
+import { useState } from "react";
+import axios from "axios";
 
-
-import sendImage from '../../assets/send.png'
-import adminImage from '../../assets/admin.png'
-import logoImage from '../../assets/logo.png'
+import sendImage from "../../assets/send.png";
+import adminImage from "../../assets/admin.png";
+import logoImage from "../../assets/logo.png";
 
 import { runImage } from "../../prompts/prompt";
 
@@ -21,14 +21,14 @@ const Form = () => {
   // };
 
   const msgEnd = React.useRef(null);
-  const [chat, setChat] = useState('');
+  const [chat, setChat] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [messages, setMessages] = useState([
-      {
-          text : "Hello, I am Gemini. How can I help you today?",  
-          isBot : true,
-      }
-  ])
+    {
+      text: "Hello, I am Vedika, please input reports for analysis?",
+      isBot: true,
+    },
+  ]);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -39,26 +39,55 @@ const Form = () => {
     msgEnd.current.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-    const handleSend = async () => {
-      const response = await runImage(chat, selectedImage);
+  // call the image api using axios and pass the chat in the body of the request
+
+  const handleSend = async (e) => {
+    try {
+      console.log(e);
+      console.log(chat);
+      console.log("this is in handle send");
+      // send the chat data to the backend using auth headers using axios
+      const response = await axios.post("http://localhost:4000/api/runImage", {
+        text: chat,
+      });
+
+      console.log(response.data.message);
       setMessages([
-          ...messages,
-          {
-              text : chat,
-              isBot : false,
-          },
-          {
-              text : response,
-              isBot : true,
-          }
-      ])
-  }
+        ...messages,
+        {
+          text: chat,
+          isBot: false,
+        },
+        {
+          text: response.data.message,
+          isBot: true,
+        },
+      ]);
+    } catch (error) {
+      console.error("Error sending chat:", error);
+      // Handle error appropriately (e.g., show a user-friendly error message)
+    }
+  };
+  // const handleSend = async () => {
+  //   const response = await runImage(chat, selectedImage);
+  //   setMessages([
+  //       ...messages,
+  //       {
+  //           text : chat,
+  //           isBot : false,
+  //       },
+  //       {
+  //           text : response,
+  //           isBot : true,
+  //       }
+  //   ])
+  // }
 
   const handleEnterKey = async (e) => {
-      if (e.key === 'Enter') {
-          await handleSend();
-      }
-  }
+    if (e.key === "Enter") {
+      await handleSend();
+    }
+  };
 
   return (
     // <Box m="20px">
@@ -175,48 +204,51 @@ const Form = () => {
     //   </Formik>
     // </Box>
 
-    <div className='main'>
-        <div className="chats">
-
-            {
-                messages.map((message) => {
-                    return (
-                        <div className={`chat ${message.isBot ? 'bot' : ''}`}>
-                            <img src={message.isBot ? logoImage : adminImage} className='chatimg' alt="" />
-                            <p className='txt'>{message.text}</p>
-                        </div>
-                    )
-                })
-            }
-
-            <div ref={msgEnd}></div>
-        </div>
-
-        <div className="chatFooter">
-            <div className="inp">
-                <input type="text" placeholder='Send a message' value={chat} 
-                onChange = {
-                    (e) => {
-                        setChat(e.target.value)
-                    }
-                }
-                onKeyDown={handleEnterKey}
-                 />
-                 <input type="file" onChange={handleImageChange} />
-                  {selectedImage && (
-                    <div>
-                      <p>Selected Image:</p>
-                      <img src={URL.createObjectURL(selectedImage)} alt="Selected" />
-                    </div>
-                  )}
-
-                  <button className='send ml-6'
-                      onClick={handleSend}
-                  >
-                    <img src={sendImage} className=" scale-[5]" alt="" />
-                </button>
+    <div className="main">
+      <div className="chats">
+        {messages.map((message) => {
+          return (
+            <div className={`chat ${message.isBot ? "bot" : ""}`}>
+              <img
+                src={message.isBot ? logoImage : adminImage}
+                className="chatimg"
+                alt=""
+              />
+              <p className="txt">{message.text}</p>
             </div>
+          );
+        })}
+
+        <div ref={msgEnd}></div>
+      </div>
+
+      <div className="chatFooter">
+        <div className="inp">
+          <input
+            type="text"
+            placeholder="Send a message"
+            value={chat}
+            onChange={(e) => {
+              setChat(e.target.value);
+            }}
+            onKeyDown={handleEnterKey}
+          />
+          <input type="file" onChange={handleImageChange} />
+          {selectedImage && (
+            <div>
+              <p>Selected Image:</p>
+              <img src={URL.createObjectURL(selectedImage)} alt="Selected" />
+            </div>
+          )}
+
+          <button
+            className="send ml-6"
+            onClick={handleSend}
+          >
+            <img src={sendImage} className="scale-[5]" alt="" />
+          </button>
         </div>
+      </div>
     </div>
   );
 };
