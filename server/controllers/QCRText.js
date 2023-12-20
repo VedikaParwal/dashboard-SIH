@@ -14,16 +14,16 @@ function fileToGenerativePart(path, mimeType) {
   };
 }
 
-exports.runImage = async (req,res) => {
+exports.runQCRImage = async (req,res) => {
 
     try {
         // For text-and-image input (multimodal), use the gemini-pro-vision model
         const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
 
         const prompt = req.body.text;
-        console.log(req.body);
+        console.log(prompt);
 
-        const image_path = "/Users/navansh/Web_Dev_Projects/SIH/dashboard-sih/server/assets/exp_1.png";
+        const image_path = "/Users/navansh/Web_Dev_Projects/SIH/dashboard-sih/server/assets/err.png";
 
         const imageParts = [
             fileToGenerativePart(image_path, "image/png"),
@@ -33,7 +33,7 @@ exports.runImage = async (req,res) => {
         const result = await model.generateContent([prompt, ...imageParts]);
         const response = await result.response;
         const text = response.text();
-        console.log(text);
+        // console.log(text);
 
         res.status(200).json({
             success: true,
