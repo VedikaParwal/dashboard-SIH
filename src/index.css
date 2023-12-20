@@ -117,7 +117,6 @@ body,
   border: none;
 }
 
-<<<<<<< HEAD
 .container{
   flex-grow: 1;
   padding: 2em;
@@ -216,7 +215,6 @@ body,
 .sidebar-item.plain i{
   display: inline-block;
   width: 1.7em;
-=======
 .formbx {
   position: relative;
   border-radius: 20px;
@@ -310,5 +308,4 @@ h2 {
 
 .form-forget a {
   color: #0d5ffd;
->>>>>>> 718c4b56e8697af2b3595da85ea123d3bf92f03c
 }
