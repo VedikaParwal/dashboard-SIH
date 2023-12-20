@@ -1,4 +1,9 @@
 import { tokens } from "../theme";
+import one from '../assets/one.png'
+import two from '../assets/two.png'
+import three from '../assets/three.png'
+import four from '../assets/four.png'
+import five from '../assets/five.png'
 
 export const mockDataTeam = [
   {
@@ -1447,3 +1452,68 @@ export const mockGeographyData = [
     value: 171135,
   },
 ];
+
+export const experiences = [
+    {
+      title: "Initiation of Project",
+      icon: one,
+      iconBg: "#383E56",
+      date: "June 2023 - July 2023",
+      points: [
+        "Conducting project feasibility studies and defining project scope.",
+        "Securing necessary approvals and permits.",
+        "Developing project plans and timelines.",
+        "Assembling project team and resources.",
+      ],
+    },
+    {
+      title: "Completion of Pavement",
+      icon: two,
+      iconBg: "#383E56",
+      date: "August 2023 - September 2023",
+      points: [
+        "Executing pavement construction activities.",
+        "Ensuring quality control and compliance with specifications.",
+        "Monitoring and managing construction schedule.",
+        "Coordinating with contractors and suppliers.",
+      ],
+    },
+    {
+      title: "Completion of Cross Drainage Phase",
+      icon: three,
+      iconBg: "#E6DEDD",
+      date: "October 2023 - November 2023",
+      points: [
+        "Implementing cross drainage solutions and structures.",
+        "Ensuring environmental compliance for water management.",
+        "Addressing environmental impact concerns.",
+        "Collaborating with environmental specialists.",
+      ],
+    },
+    {
+      title: "Environmental Compliance and Impact Mitigation",
+      icon: four,
+      iconBg: "#E6DEDD",
+      date: "December 2023 - January 2024",
+      points: [
+        "Conducting environmental impact assessments.",
+        "Implementing mitigation measures and sustainability practices.",
+        "Ensuring compliance with environmental regulations.",
+        "Collaborating with environmental agencies for approvals.",
+      ],
+    },
+    {
+      title: "Project Completion and Handover",
+      icon: five,
+      iconBg: "#E6DEDD",
+      date: "February 2024 - March 2024",
+      points: [
+        "Finalizing project documentation and reports.",
+        "Conducting project walkthroughs and inspections.",
+        "Completing any outstanding tasks and punch list items.",
+        "Handing over the project to stakeholders and clients.",
+      ],
+    },
+];
+
+

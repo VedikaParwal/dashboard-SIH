@@ -61,6 +61,8 @@ const Sidebar = () => {
           color: "#6870fa !important",
         },
       }}
+
+      className=" left-0"
     >
       <ProSidebar collapsed={isCollapsed}>
         <Menu iconShape="square">
@@ -170,7 +172,7 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="Calendar"
+              title="QCR Report Analysis"
               to="/calendar"
               icon={<CalendarTodayOutlinedIcon />}
               selected={selected}
@@ -213,7 +215,7 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="Geography Chart"
+              title="Timeline Chart"
               to="/geography"
               icon={<MapOutlinedIcon />}
               selected={selected}
